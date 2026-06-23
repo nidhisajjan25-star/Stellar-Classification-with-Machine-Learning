@@ -88,8 +88,8 @@ Run all cells top to bottom. The notebook expects `data/star_classification.csv`
 | Class (encoded) | Precision | Recall | F1-score | Support |
 |---|---|---|---|---|
 | 0 — GALAXY | 0.93 | 0.93 | 0.93 | 16,599 |
-| 1 — QSO | 1.00 | 0.99 | 1.00 | 16,838 |
-| 2 — STAR | 0.93 | 0.94 | 0.93 | 16,752 |
+| 1 — STAR | 1.00 | 0.99 | 1.00 | 16,838 |
+| 2 — QSO | 0.93 | 0.94 | 0.93 | 16,752 |
 
 | Metric | Value |
 |---|---|
@@ -102,8 +102,8 @@ Run all cells top to bottom. The notebook expects `data/star_classification.csv`
 
 ## Interpretation
 
-- **QSO (quasars) are classified almost perfectly** (precision and recall both ≈0.99–1.00). This makes physical sense: quasars have a very distinctive spectral signature (strong, broad emission lines and characteristically high redshift) that separates them cleanly from stars and galaxies in feature space.
-- **GALAXY and STAR are slightly harder to separate from each other** (precision/recall both ~0.94–0.95), which is consistent with the astrophysical reality that some galaxy and stellar photometric profiles can overlap, especially for compact or distant galaxies that appear point-like, similar to stars.
+- **STARs are classified almost perfectly** (precision and recall both ≈0.99–1.00). This makes physical sense: stars have a very distinctive spectral signature and intense brightness that separates them cleanly from quasars and galaxies in feature space.
+- **GALAXY and STAR are slightly harder to separate from each other** (precision/recall both ~0.94–0.95), which is consistent with the astrophysical reality that some galaxy and quaser photometric profiles can overlap, especially for compact or distant galaxies that appear point-like. Quasars are galactic nuclei at larger distances, and thus similar to galaxies.
 - **High AUC (0.98 average) across all classes** indicates the model's predicted probabilities rank true positives above false positives very reliably — performance is strong and consistent even before applying a specific classification threshold.
 - **The macro and weighted averages are nearly identical** (0.96 vs 0.96), which tells us the classes are well-balanced in the evaluation set and that no single class is dominating the aggregate metrics. This is expected here since SMOTE balanced the classes before they were split.
 
