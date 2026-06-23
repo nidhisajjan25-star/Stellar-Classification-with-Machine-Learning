@@ -13,7 +13,6 @@ A Random Forest classifier that predicts whether a Sloan Digital Sky Survey (SDS
 - [Pipeline Overview](#pipeline-overview)
 - [Results](#results)
 - [Interpretation](#interpretation)
-- [Known Limitations](#known-limitations)
 - [Project Structure](#project-structure)
 
 ---
@@ -76,21 +75,12 @@ Run all cells top to bottom. The notebook expects `data/star_classification.csv`
 
 ## Pipeline Overview
 
-1. **Load and Analyse data** — read CSV, drop identifier/non-predictive columns (e.g. object IDs, run/camcol/field metadata if not used as features).
-2. **Encode target** — `class` (`GALAXY`/`STAR`/`QSO`) is converted to integers via `LabelEncoder`. The mapping is alphabetical by default:
-
-   | Encoded value | Class |
-   |---|---|
-   | 0 | GALAXY |
-   | 1 | QSO |
-   | 2 | STAR |
-
-   ⚠️ **Verify this against your own `label_encoder.classes_` output** — `LabelEncoder` sorts alphabetically, so the order above is the expected default, but always confirm rather than assume.
-
-3. **Balance classes with SMOTE** — `SMOTE(random_state=42)` is applied to oversample minority classes so all three classes have equal representation.
+1. **Loading and Analysing data** — applying read_csv, dropping identifier/non-predictive columns (e.g. object IDs, run/camcol/field metadata if not used as features).
+2. **Encoding the target** — `class` (`GALAXY`/`STAR`/`QSO`) is converted to integers via `LabelEncoder`. The mapping is alphabetical by default:
+3. **Balancing the classes with SMOTE** — `SMOTE(random_state=42)` is applied to oversample minority classes so all three classes have equal representation.
 4. **Train/test split** — features (`x`) and resampled target (`y`) are split via `train_test_split`.
-5. **Train model** — `RandomForestClassifier` is fit on the training set.
-6. **Evaluate** — accuracy, classification report (precision/recall/F1 per class), ROC AUC per class, confusion matrix, and a feauture importance bar chart are generated on the test set.
+5. **Training the model** — `RandomForestClassifier` is fit on the training set.
+6. **Evaluation** — accuracy, classification report (precision/recall/F1 per class), ROC AUC per class, confusion matrix, and a feauture importance bar chart are generated on the test set.
 
 ---
 
@@ -120,11 +110,7 @@ Run all cells top to bottom. The notebook expects `data/star_classification.csv`
 - **High AUC (0.98 average) across all classes** indicates the model's predicted probabilities rank true positives above false positives very reliably — performance is strong and consistent even before applying a specific classification threshold.
 - **The macro and weighted averages are nearly identical** (0.96 vs 0.96), which tells us the classes are well-balanced in the evaluation set and that no single class is dominating the aggregate metrics. This is expected here since SMOTE balanced the classes before they were split.
 
-### Important caveat on these numbers
-
-⚠️ **SMOTE was applied before the train/test split in this pipeline.** This means synthetic samples generated for minority classes could share statistical structure with real samples that later ended up in the test set — a form of **data leakage**. As a result:
-
-- The reported 95.34% accuracy and 0.95 F1/0.9983 AUC are likely **optimistic** relative to true generalization performance.
+- The reported 95.34% accuracy and 0.95 F1/0.9983 AUC are **optimistic** relative to true generalization performance.
 
 ---
 
