@@ -1,8 +1,5 @@
 # Stellar-Classification-with-Machine-Learning
 The project utilises the Random Forest Classification to categorise astronomical objects as stars, galaxies, or quasars. This is a multi-class supervised ML classifier trained on SDSS DR18 photometric and spectroscopic data, hyperparameter tuned with GridSearchCV having an overall accuracy of 95.34% and an f1-score of 0.95.
-# Stellar Classification with Machine Learning
-
-A Random Forest classifier that predicts whether a Sloan Digital Sky Survey (SDSS) observation is a **Galaxy**, **Star**, or **Quasar (QSO)**, based on photometric and spectroscopic features.
 
 ---
 
